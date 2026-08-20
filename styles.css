@@ -839,7 +839,7 @@ html, body {
 }
 
 /* ============================================
-   SCENE 6 - QUOTES
+   SCENE 6 - LOVE LETTER (Typing Reveal)
    ============================================ */
 .stars-bg {
     position: absolute;
@@ -862,88 +862,114 @@ html, body {
     50% { opacity: 1; }
 }
 
-.quotes-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(28px, 5vw, 52px);
-    font-weight: 800;
-    background: linear-gradient(135deg, var(--pink), var(--gold));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: 40px;
+.letter-container {
     z-index: 5;
-}
-
-.quotes-container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
+    justify-content: center;
     width: 90%;
-    max-width: 600px;
-    z-index: 5;
-    max-height: 60vh;
+    max-width: 620px;
+    max-height: 75vh;
     overflow-y: auto;
     padding: 10px;
 }
 
-.quotes-container::-webkit-scrollbar {
+.letter-container::-webkit-scrollbar {
     width: 4px;
 }
 
-.quotes-container::-webkit-scrollbar-thumb {
+.letter-container::-webkit-scrollbar-thumb {
     background: var(--gold);
     border-radius: 2px;
 }
 
-.quote-card {
-    width: 100%;
-    padding: 20px 25px;
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-radius: 16px;
+.letter {
+    background: linear-gradient(145deg, rgba(255, 248, 230, 0.1), rgba(255, 240, 200, 0.06));
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    border-radius: 20px;
+    padding: clamp(25px, 5vw, 45px);
     position: relative;
-    opacity: 0;
-    transform: translateX(-30px);
-    transition: all 0.6s ease;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 215, 0, 0.1);
+    width: 100%;
 }
 
-.quote-card.revealed {
-    opacity: 1;
-    transform: translateX(0);
-}
-
-.quote-card:nth-child(even) {
-    transform: translateX(30px);
-}
-
-.quote-card:nth-child(even).revealed {
-    transform: translateX(0);
-}
-
-.quote-card p {
-    font-family: 'Dancing Script', cursive;
-    font-size: clamp(16px, 3vw, 22px);
-    color: rgba(255, 255, 255, 0.95);
-    line-height: 1.6;
-}
-
-.quote-num {
+.letter::before {
+    content: "";
     position: absolute;
-    top: -10px;
-    right: -10px;
-    width: 30px;
-    height: 30px;
-    background: var(--gradient-gold);
-    color: #1a0033;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 20px;
+    background:
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 31px,
+            rgba(255, 215, 0, 0.06) 31px,
+            rgba(255, 215, 0, 0.06) 32px
+        );
+    pointer-events: none;
+}
+
+.letter-seal {
+    position: absolute;
+    top: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 36px;
+    filter: drop-shadow(0 2px 8px rgba(233, 30, 99, 0.4));
+    z-index: 10;
+}
+
+.letter-content {
+    position: relative;
+    z-index: 2;
+}
+
+.letter-line {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(16px, 3vw, 21px);
+    color: rgba(255, 255, 255, 0.92);
+    line-height: 2;
+    margin: 0;
+    padding: 0 0 4px 0;
+    opacity: 0;
+    min-height: 1.6em;
+    position: relative;
+}
+
+.letter-line.revealed {
+    opacity: 1;
+}
+
+.letter-line.dropcap {
+    font-size: clamp(20px, 4vw, 28px);
+    color: var(--gold);
     font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.letter-line.flourish {
+    color: rgba(255, 215, 0, 0.85);
+}
+
+.letter-line .cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1em;
+    background: var(--gold);
+    margin-left: 2px;
+    vertical-align: text-bottom;
+    animation: cursorBlink 0.7s step-end infinite;
+}
+
+@keyframes cursorBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
 }
 
 /* ============================================

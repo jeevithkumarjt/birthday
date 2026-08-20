@@ -537,14 +537,17 @@ function initScene5() {
 }
 
 // ============================================
-// SCENE 6 - QUOTES
+// SCENE 6 - LOVE LETTER (Typing Reveal)
 // ============================================
 function initScene6() {
-    const quotes = document.querySelectorAll('.quote-card');
+    const lines = document.querySelectorAll('.letter-line');
     const nextBtn = document.getElementById('nextFromQuotes');
+    const letterContent = document.getElementById('letterContent');
 
-    // Reset
-    quotes.forEach(q => q.classList.remove('revealed'));
+    lines.forEach(l => {
+        l.classList.remove('revealed');
+        l.textContent = '';
+    });
     nextBtn.style.display = 'none';
 
     // Create stars
@@ -560,18 +563,68 @@ function initScene6() {
         starsBg.appendChild(star);
     }
 
-    // Reveal quotes one by one
-    quotes.forEach((quote, i) => {
-        setTimeout(() => {
-            quote.classList.add('revealed');
-        }, 500 * (i + 1));
-    });
+    const originalTexts = [
+        'My dearest Trijal,',
+        'Every moment with you feels like a beautiful dream.',
+        '✿ Your smile lights up even the darkest of days.',
+        'The way you laugh is my favorite sound in the world.',
+        '✿ You have this incredible ability to make everyone around you feel loved.',
+        'Watching you grow, achieve, and shine has been my greatest joy.',
+        '✿ On this special day, I want you to know that you are deeply cherished.',
+        'May this year bring you all the happiness your heart desires.',
+        '✿ May your dreams come true and your soul always find peace.',
+        'Happy Birthday, my love. I\'m so proud of you.',
+        '✿ With all my love, always.'
+    ];
 
-    // Show next button
-    setTimeout(() => {
-        nextBtn.style.display = 'block';
-        gsap.from(nextBtn, { y: 20, opacity: 0, duration: 0.5 });
-    }, 500 * quotes.length + 500);
+    let currentLine = 0;
+
+    function typeLine(lineIndex) {
+        if (lineIndex >= lines.length) {
+            // All done
+            setTimeout(() => {
+                nextBtn.style.display = 'block';
+                gsap.from(nextBtn, { y: 20, opacity: 0, duration: 0.5 });
+            }, 600);
+            return;
+        }
+
+        const line = lines[lineIndex];
+        const text = originalTexts[lineIndex];
+        let charIndex = 0;
+
+        line.classList.add('revealed');
+
+        // Add cursor
+        const cursor = document.createElement('span');
+        cursor.className = 'cursor';
+        line.appendChild(cursor);
+
+        const typeInterval = setInterval(() => {
+            if (charIndex < text.length) {
+                // Insert char before cursor
+                const textNode = document.createTextNode(text[charIndex]);
+                line.insertBefore(textNode, cursor);
+                charIndex++;
+
+                // Auto scroll to bottom of letter
+                const container = document.querySelector('.letter-container');
+                container.scrollTop = container.scrollHeight;
+            } else {
+                clearInterval(typeInterval);
+                // Remove cursor after a beat
+                setTimeout(() => {
+                    if (cursor.parentNode) cursor.remove();
+                    // Move to next line
+                    currentLine++;
+                    typeLine(currentLine);
+                }, 300);
+            }
+        }, 35 + Math.random() * 25);
+    }
+
+    // Start typing after a short delay
+    setTimeout(() => typeLine(0), 600);
 
     nextBtn.addEventListener('click', () => goToScene(7));
 }
