@@ -930,46 +930,36 @@ html, body {
     z-index: 2;
 }
 
-.letter-line {
+.typewriter-text {
     font-family: 'Dancing Script', cursive;
     font-size: clamp(16px, 3vw, 21px);
     color: rgba(255, 255, 255, 0.92);
     line-height: 2;
     margin: 0;
-    padding: 0 0 4px 0;
-    opacity: 0;
-    min-height: 1.6em;
-    position: relative;
+    white-space: pre-wrap;
+    word-wrap: break-word;
 }
 
-.letter-line.revealed {
-    opacity: 1;
-}
-
-.letter-line.dropcap {
-    font-size: clamp(20px, 4vw, 28px);
+.typewriter-cursor {
+    display: inline;
     color: var(--gold);
-    font-weight: 700;
-    margin-bottom: 8px;
-}
-
-.letter-line.flourish {
-    color: rgba(255, 215, 0, 0.85);
-}
-
-.letter-line .cursor {
-    display: inline-block;
-    width: 2px;
-    height: 1em;
-    background: var(--gold);
-    margin-left: 2px;
-    vertical-align: text-bottom;
+    font-weight: bold;
     animation: cursorBlink 0.7s step-end infinite;
+    font-family: monospace;
+    font-size: clamp(18px, 3vw, 24px);
+}
+
+.typewriter-cursor.done {
+    animation: fadeOut 0.5s ease forwards;
 }
 
 @keyframes cursorBlink {
     0%, 100% { opacity: 1; }
     50% { opacity: 0; }
+}
+
+@keyframes fadeOut {
+    to { opacity: 0; }
 }
 
 /* ============================================

@@ -537,17 +537,11 @@ function initScene5() {
 }
 
 // ============================================
-// SCENE 6 - LOVE LETTER (Typing Reveal)
+// SCENE 6 - LOVE LETTER (Typewriter Style)
 // ============================================
 function initScene6() {
-    const lines = document.querySelectorAll('.letter-line');
-    const nextBtn = document.getElementById('nextFromQuotes');
     const letterContent = document.getElementById('letterContent');
-
-    lines.forEach(l => {
-        l.classList.remove('revealed');
-        l.textContent = '';
-    });
+    const nextBtn = document.getElementById('nextFromQuotes');
     nextBtn.style.display = 'none';
 
     // Create stars
@@ -563,25 +557,53 @@ function initScene6() {
         starsBg.appendChild(star);
     }
 
-    const originalTexts = [
+    const fullText = [
         'My dearest Trijal,',
+        '',
         'Every moment with you feels like a beautiful dream.',
+        '',
         '✿ Your smile lights up even the darkest of days.',
+        '',
         'The way you laugh is my favorite sound in the world.',
+        '',
         '✿ You have this incredible ability to make everyone around you feel loved.',
+        '',
         'Watching you grow, achieve, and shine has been my greatest joy.',
+        '',
         '✿ On this special day, I want you to know that you are deeply cherished.',
+        '',
         'May this year bring you all the happiness your heart desires.',
+        '',
         '✿ May your dreams come true and your soul always find peace.',
+        '',
         'Happy Birthday, my love. I\'m so proud of you.',
+        '',
         '✿ With all my love, always.'
     ];
 
-    let currentLine = 0;
+    letterContent.innerHTML = '';
 
-    function typeLine(lineIndex) {
-        if (lineIndex >= lines.length) {
-            // All done
+    // Build a single paragraph with line breaks
+    const p = document.createElement('p');
+    p.className = 'letter-text typewriter-text';
+    letterContent.appendChild(p);
+
+    // Cursor
+    const cursor = document.createElement('span');
+    cursor.className = 'typewriter-cursor';
+    cursor.textContent = '|';
+    p.appendChild(cursor);
+
+    // Flatten all lines into one continuous string with real newlines
+    const text = fullText.join('\n');
+    let charIndex = 0;
+
+    // Auto scroll helper
+    const container = document.querySelector('.letter-container');
+
+    function typeNext() {
+        if (charIndex >= text.length) {
+            cursor.classList.add('done');
             setTimeout(() => {
                 nextBtn.style.display = 'block';
                 gsap.from(nextBtn, { y: 20, opacity: 0, duration: 0.5 });
@@ -589,42 +611,31 @@ function initScene6() {
             return;
         }
 
-        const line = lines[lineIndex];
-        const text = originalTexts[lineIndex];
-        let charIndex = 0;
+        const char = text[charIndex];
 
-        line.classList.add('revealed');
+        if (char === '\n') {
+            // Line break
+            const br = document.createElement('br');
+            p.insertBefore(br, cursor);
+            charIndex++;
+            container.scrollTop = container.scrollHeight;
+            setTimeout(typeNext, 100);
+        } else {
+            const span = document.createTextNode(char);
+            p.insertBefore(span, cursor);
+            charIndex++;
+            container.scrollTop = container.scrollHeight;
 
-        // Add cursor
-        const cursor = document.createElement('span');
-        cursor.className = 'cursor';
-        line.appendChild(cursor);
+            // Vary speed for natural feel
+            let delay = 40 + Math.random() * 30;
+            if (char === '.' || char === ',') delay = 150 + Math.random() * 100;
+            if (char === '✿') delay = 200;
 
-        const typeInterval = setInterval(() => {
-            if (charIndex < text.length) {
-                // Insert char before cursor
-                const textNode = document.createTextNode(text[charIndex]);
-                line.insertBefore(textNode, cursor);
-                charIndex++;
-
-                // Auto scroll to bottom of letter
-                const container = document.querySelector('.letter-container');
-                container.scrollTop = container.scrollHeight;
-            } else {
-                clearInterval(typeInterval);
-                // Remove cursor after a beat
-                setTimeout(() => {
-                    if (cursor.parentNode) cursor.remove();
-                    // Move to next line
-                    currentLine++;
-                    typeLine(currentLine);
-                }, 300);
-            }
-        }, 35 + Math.random() * 25);
+            setTimeout(typeNext, delay);
+        }
     }
 
-    // Start typing after a short delay
-    setTimeout(() => typeLine(0), 600);
+    setTimeout(typeNext, 800);
 
     nextBtn.addEventListener('click', () => goToScene(7));
 }
