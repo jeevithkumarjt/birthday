@@ -1,0 +1,1398 @@
+/* ============================================
+   PREMIUM CINEMATIC BIRTHDAY - STYLES
+   ============================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --gold: #ffd700;
+    --gold-light: #ffe44d;
+    --rose: #ff6b9d;
+    --rose-dark: #e91e63;
+    --purple: #a855f7;
+    --purple-dark: #7c3aed;
+    --blue: #3b82f6;
+    --pink: #ec4899;
+    --gradient-romantic: linear-gradient(135deg, #1a0033, #2d1b69, #1a0033);
+    --gradient-gold: linear-gradient(135deg, #b8860b, #ffd700, #b8860b);
+    --glass-bg: rgba(255, 255, 255, 0.08);
+    --glass-border: rgba(255, 255, 255, 0.15);
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
+    background: var(--gradient-romantic);
+    color: white;
+}
+
+/* Particle Canvas */
+#particleCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* ============================================
+   SCENE BASE STYLES
+   ============================================ */
+.scene {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.scene.active {
+    opacity: 1;
+    visibility: visible;
+    z-index: 10;
+}
+
+/* ============================================
+   SCENE 1 - ENVELOPE
+   ============================================ */
+.scene1-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, #2d1b69 0%, #1a0033 70%);
+    z-index: -1;
+}
+
+.envelope-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    z-index: 5;
+}
+
+.envelope-top-text {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(28px, 5vw, 48px);
+    color: var(--gold);
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+    animation: shimmer 2s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+    0%, 100% { filter: brightness(1); }
+    50% { filter: brightness(1.3); }
+}
+
+.envelope {
+    width: clamp(250px, 50vw, 380px);
+    height: clamp(180px, 35vw, 280px);
+    position: relative;
+    perspective: 1000px;
+    cursor: pointer;
+}
+
+.envelope-body {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(145deg, #8b6914, #c9a227, #8b6914);
+    border-radius: 12px;
+    position: relative;
+    border: 3px solid var(--gold);
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.4),
+                inset 0 0 30px rgba(255, 215, 0, 0.1);
+    overflow: hidden;
+}
+
+.envelope-shine {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent 40%, rgba(255, 255, 255, 0.1) 50%, transparent 60%);
+    animation: envelopeShine 3s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes envelopeShine {
+    0% { transform: translateX(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) rotate(45deg); }
+}
+
+.envelope-flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: linear-gradient(145deg, #a07818, #d4af37);
+    clip-path: polygon(0 0, 50% 100%, 100% 0);
+    transform-origin: top;
+    z-index: 3;
+    border: 2px solid var(--gold);
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.envelope-flap.open {
+    transform: rotateX(180deg);
+}
+
+.envelope-letter {
+    position: absolute;
+    top: 20%;
+    left: 10%;
+    width: 80%;
+    height: 60%;
+    background: linear-gradient(135deg, #fff9e6, #fff);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translateY(40px);
+    opacity: 0;
+    transition: all 0.6s ease 0.4s;
+    z-index: 2;
+}
+
+.envelope-letter.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.letter-text {
+    color: #333;
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(12px, 2.5vw, 18px);
+    text-align: center;
+    padding: 15px;
+    line-height: 1.6;
+}
+
+.tap-btn {
+    padding: 16px 40px;
+    font-size: clamp(16px, 3vw, 22px);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    background: var(--gradient-gold);
+    color: #1a0033;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(255, 215, 0, 0.4);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.tap-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 30px rgba(255, 215, 0, 0.6);
+}
+
+@keyframes pulse {
+    0%, 100% { box-shadow: 0 4px 20px rgba(255, 215, 0, 0.4); }
+    50% { box-shadow: 0 4px 40px rgba(255, 215, 0, 0.7); }
+}
+
+.floating-emojis-scene1 span {
+    position: absolute;
+    font-size: 24px;
+    animation: floatAround 6s ease-in-out infinite;
+}
+.floating-emojis-scene1 span:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
+.floating-emojis-scene1 span:nth-child(2) { top: 20%; right: 15%; animation-delay: 1.5s; }
+.floating-emojis-scene1 span:nth-child(3) { bottom: 20%; left: 20%; animation-delay: 3s; }
+.floating-emojis-scene1 span:nth-child(4) { bottom: 15%; right: 10%; animation-delay: 4.5s; }
+
+@keyframes floatAround {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-20px) rotate(10deg); }
+    50% { transform: translateY(-10px) rotate(-5deg); }
+    75% { transform: translateY(-25px) rotate(5deg); }
+}
+
+/* ============================================
+   SCENE 2 - HAPPY BIRTHDAY
+   ============================================ */
+.balloons-container {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.balloon {
+    position: absolute;
+    width: clamp(50px, 10vw, 80px);
+    height: clamp(60px, 12vw, 100px);
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    cursor: pointer;
+    pointer-events: all;
+    animation: balloonFloat 4s ease-in-out infinite;
+    transition: transform 0.2s;
+    filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3));
+}
+
+.balloon::after {
+    content: '';
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    width: 2px;
+    height: 30px;
+    background: rgba(255, 255, 255, 0.4);
+    transform: translateX(-50%);
+}
+
+.balloon::before {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    background: inherit;
+    border-radius: 50%;
+    transform: translateX(-50%);
+}
+
+.balloon:hover {
+    transform: scale(1.1);
+}
+
+.balloon.pop {
+    animation: balloonPop 0.5s ease forwards;
+}
+
+@keyframes balloonFloat {
+    0%, 100% { transform: translateY(0) rotate(3deg); }
+    50% { transform: translateY(-20px) rotate(-3deg); }
+}
+
+@keyframes balloonPop {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.5); opacity: 0.5; }
+    100% { transform: scale(0); opacity: 0; }
+}
+
+.sparkles-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.sparkle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--gold);
+    border-radius: 50%;
+    animation: sparkleAnim 1.5s ease-in-out infinite;
+}
+
+@keyframes sparkleAnim {
+    0%, 100% { opacity: 0; transform: scale(0); }
+    50% { opacity: 1; transform: scale(1); }
+}
+
+.scene2-content {
+    text-align: center;
+    z-index: 5;
+    padding: 20px;
+}
+
+.birthday-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 7vw, 72px);
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--gold), #fff, var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: none;
+    margin-bottom: 30px;
+    animation: titleGlow 2s ease-in-out infinite;
+}
+
+@keyframes titleGlow {
+    0%, 100% { filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.3)); }
+    50% { filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.6)); }
+}
+
+.birthday-quote {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(14px, 2.5vw, 20px);
+    line-height: 2;
+    color: rgba(255, 255, 255, 0.9);
+    max-width: 600px;
+    margin: 0 auto 30px;
+    padding: 25px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.tap-balloon-text {
+    font-size: clamp(16px, 3vw, 22px);
+    color: var(--gold);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* ============================================
+   SCENE 3 - BIRTHDAY CAKE (USER DESIGN)
+   ============================================ */
+.scene3-effects {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+}
+
+.bokeh-lights {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at 15% 25%, rgba(255, 215, 0, 0.18) 0%, transparent 35%),
+        radial-gradient(circle at 85% 20%, rgba(168, 85, 247, 0.15) 0%, transparent 35%),
+        radial-gradient(circle at 50% 80%, rgba(236, 72, 153, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 30% 70%, rgba(59, 130, 246, 0.1) 0%, transparent 30%),
+        radial-gradient(circle at 75% 60%, rgba(255, 215, 0, 0.08) 0%, transparent 30%);
+    animation: bokehPulse 4s ease-in-out infinite alternate;
+}
+
+@keyframes bokehPulse {
+    0% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+.cake-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    z-index: 5;
+}
+
+.birthday-cake {
+    position: relative;
+    width: 520px;
+    height: 480px;
+    margin: auto;
+}
+
+.cake-shadow {
+    position: absolute;
+    bottom: 35px;
+    left: 50%;
+    width: 400px;
+    height: 35px;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background: rgba(100, 50, 60, 0.16);
+    filter: blur(12px);
+}
+
+.cake-plate {
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+    width: 430px;
+    height: 25px;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background: #f8e8e9;
+    box-shadow: 0 5px 12px rgba(80, 40, 50, 0.12);
+}
+
+.cake-body {
+    position: absolute;
+    bottom: 48px;
+    left: 50%;
+    width: 420px;
+    height: 350px;
+    transform: translateX(-50%);
+}
+
+.layer {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 18px;
+    background: linear-gradient(90deg, #e9b9bd, #f6d5d6 20%, #fff0ed 50%, #f6d5d6 80%, #e9b9bd);
+    box-shadow: 0 8px 15px rgba(100, 45, 55, 0.1), inset 0 -8px 15px rgba(130, 60, 70, 0.08);
+}
+
+.layer-1 {
+    bottom: 0;
+    width: 420px;
+    height: 120px;
+    background: linear-gradient(90deg, #dca7ad, #f1c7ca 18%, #ffe4e1 50%, #f1c7ca 82%, #dca7ad);
+}
+
+.layer-2 {
+    bottom: 100px;
+    width: 330px;
+    height: 110px;
+    background: linear-gradient(90deg, #e4afb7, #f6d0d2 18%, #fff0ed 50%, #f6d0d2 82%, #e4afb7);
+}
+
+.layer-3 {
+    bottom: 190px;
+    width: 245px;
+    height: 100px;
+    background: linear-gradient(90deg, #e9b8bf, #f8d9d9 20%, #fff3ef 50%, #f8d9d9 80%, #e9b8bf);
+}
+
+.layer:before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: -10px;
+    width: 100%;
+    height: 25px;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background: #fff0ed;
+    box-shadow: 0 2px 5px rgba(120, 60, 70, 0.08);
+}
+
+.layer-1:after,
+.layer-2:after {
+    content: "";
+    position: absolute;
+    left: 8%;
+    right: 8%;
+    top: 28px;
+    height: 3px;
+    border-radius: 50%;
+    background: rgba(191, 103, 121, 0.25);
+    box-shadow: 0 28px 0 rgba(191, 103, 121, 0.18);
+}
+
+.candle {
+    position: absolute;
+    z-index: 20;
+    left: 50%;
+    top: -75px;
+    width: 28px;
+    height: 75px;
+    transform: translateX(-50%);
+    border-radius: 6px;
+    background: repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0 7px, transparent 7px 14px), #d8758e;
+    box-shadow: 0 5px 8px rgba(90, 30, 40, 0.14);
+    cursor: pointer;
+}
+
+.wick {
+    position: absolute;
+    left: 50%;
+    top: -12px;
+    width: 3px;
+    height: 12px;
+    transform: translateX(-50%);
+    background: #382017;
+    border-radius: 3px;
+}
+
+.flame {
+    position: absolute;
+    left: 50%;
+    top: -50px;
+    width: 24px;
+    height: 40px;
+    transform: translateX(-50%);
+    border-radius: 50% 50% 50% 50% / 65% 65% 35% 35%;
+    background: radial-gradient(ellipse at 50% 70%, #fffbd2, #ffe17a 30%, #ff9e31 62%, #ed641d);
+    box-shadow: 0 0 14px rgba(255, 160, 40, 0.7);
+    animation: cakeFlame 0.7s ease-in-out infinite alternate;
+}
+
+.flame:after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 4px;
+    width: 7px;
+    height: 17px;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background: #fffef1;
+}
+
+.candle.off .flame {
+    opacity: 0;
+    transform: translateX(-50%) scale(0);
+}
+
+.candle.off .wick:after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: -4px;
+    width: 13px;
+    height: 13px;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(120, 120, 120, 0.5), transparent 70%);
+    animation: cakeSmoke 1.4s ease-out forwards;
+}
+
+@keyframes cakeFlame {
+    0% { transform: translateX(-50%) rotate(-5deg) scale(0.94); }
+    100% { transform: translateX(-50%) rotate(4deg) scale(1.06); }
+}
+
+@keyframes cakeSmoke {
+    0% { opacity: 0.6; transform: translateX(-50%) translateY(0) scale(0.5); }
+    100% { opacity: 0; transform: translateX(-50%) translateY(-45px) scale(2); }
+}
+
+@media (max-width: 600px) {
+    .birthday-cake { height: 400px; }
+    .cake-body { transform: translateX(-50%) scale(0.72); transform-origin: center bottom; }
+    .cake-plate { transform: translateX(-50%) scale(0.72); }
+    .cake-shadow { transform: translateX(-50%) scale(0.72); }
+}
+
+@media (max-width: 400px) {
+    .cake-body { transform: translateX(-50%) scale(0.6); }
+    .cake-plate { transform: translateX(-50%) scale(0.6); }
+    .cake-shadow { transform: translateX(-50%) scale(0.6); }
+}
+
+
+
+/* ---- MAKE WISH TEXT ---- */
+.make-wish-text {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(28px, 5vw, 48px);
+    color: var(--gold);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+    margin-top: 10px;
+}
+
+.make-wish-text.show {
+    opacity: 1;
+    animation: wishPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes wishPulse {
+    0%, 100% { text-shadow: 0 0 20px rgba(255, 215, 0, 0.5); }
+    50% { text-shadow: 0 0 40px rgba(255, 215, 0, 0.9), 0 0 60px rgba(255, 215, 0, 0.4); }
+}
+
+/* ============================================
+   SCENE 4 - MEMORY GALLERY
+   ============================================ */
+.gallery-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(24px, 4vw, 42px);
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--gold), #fff, var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 20px;
+    z-index: 5;
+}
+
+.memory-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    max-width: 900px;
+    width: 92%;
+    z-index: 5;
+    margin-bottom: 15px;
+    max-height: 58vh;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+.memory-grid::-webkit-scrollbar {
+    width: 4px;
+}
+
+.memory-grid::-webkit-scrollbar-thumb {
+    background: var(--gold);
+    border-radius: 2px;
+}
+
+.memory-card {
+    perspective: 1000px;
+    height: 130px;
+    cursor: pointer;
+}
+
+.card-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 16px;
+}
+
+.memory-card.flipped .card-inner {
+    transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.card-front {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.lock-icon {
+    font-size: 32px;
+}
+
+.card-front p {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.card-back {
+    transform: rotateY(180deg);
+    overflow: hidden;
+    background: #1a0033;
+}
+
+.card-back img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 16px;
+    display: block;
+}
+
+.memory-photo {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+}
+
+.memory-emoji {
+    font-size: 48px;
+}
+
+.floating-hearts-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.floating-heart {
+    position: absolute;
+    font-size: 20px;
+    animation: floatHeart 5s ease-in-out infinite;
+}
+
+@keyframes floatHeart {
+    0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
+}
+
+/* ============================================
+   SCENE 5 - TIMELINE
+   ============================================ */
+.timeline-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 5vw, 52px);
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--rose), var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 40px;
+    z-index: 5;
+}
+
+.timeline {
+    position: relative;
+    width: 90%;
+    max-width: 800px;
+    z-index: 5;
+    padding: 20px 0;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.timeline::-webkit-scrollbar {
+    width: 4px;
+}
+
+.timeline::-webkit-scrollbar-thumb {
+    background: var(--gold);
+    border-radius: 2px;
+}
+
+.timeline-line {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 3px;
+    height: 0;
+    background: var(--gradient-gold);
+    transform: translateX(-50%);
+    transition: height 1s ease;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+.timeline-item {
+    display: flex;
+    margin-bottom: 30px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+}
+
+.timeline-item.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.timeline-item.left {
+    justify-content: flex-start;
+    padding-right: 55%;
+}
+
+.timeline-item.right {
+    justify-content: flex-end;
+    padding-left: 55%;
+}
+
+.timeline-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 20px 25px;
+    border-radius: 16px;
+    box-shadow: var(--glass-shadow);
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.timeline-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+    border-color: var(--gold);
+}
+
+.timeline-month {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(14px, 2.5vw, 18px);
+    color: var(--gold);
+    font-weight: 600;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.timeline-event {
+    font-size: clamp(12px, 1.8vw, 15px);
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.6;
+}
+
+/* ============================================
+   SCENE 6 - QUOTES
+   ============================================ */
+.stars-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.star {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle 2s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+}
+
+.quotes-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 5vw, 52px);
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--pink), var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 40px;
+    z-index: 5;
+}
+
+.quotes-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    width: 90%;
+    max-width: 600px;
+    z-index: 5;
+    max-height: 60vh;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+.quotes-container::-webkit-scrollbar {
+    width: 4px;
+}
+
+.quotes-container::-webkit-scrollbar-thumb {
+    background: var(--gold);
+    border-radius: 2px;
+}
+
+.quote-card {
+    width: 100%;
+    padding: 20px 25px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 16px;
+    position: relative;
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: all 0.6s ease;
+}
+
+.quote-card.revealed {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.quote-card:nth-child(even) {
+    transform: translateX(30px);
+}
+
+.quote-card:nth-child(even).revealed {
+    transform: translateX(0);
+}
+
+.quote-card p {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(16px, 3vw, 22px);
+    color: rgba(255, 255, 255, 0.95);
+    line-height: 1.6;
+}
+
+.quote-num {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 30px;
+    height: 30px;
+    background: var(--gradient-gold);
+    color: #1a0033;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+/* ============================================
+   SCENE 7 - MOOD
+   ============================================ */
+.mood-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 5vw, 52px);
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--gold), #fff, var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 40px;
+    z-index: 5;
+}
+
+.mood-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 20px;
+    max-width: 600px;
+    width: 90%;
+    z-index: 5;
+    margin-bottom: 30px;
+}
+
+.mood-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 25px 15px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: var(--glass-shadow);
+}
+
+.mood-card:hover {
+    transform: translateY(-10px) scale(1.05);
+    border-color: var(--gold);
+    box-shadow: 0 15px 40px rgba(255, 215, 0, 0.2);
+}
+
+.mood-card.selected {
+    border-color: var(--gold);
+    background: rgba(255, 215, 0, 0.15);
+    transform: scale(1.1);
+}
+
+.mood-emoji {
+    font-size: clamp(36px, 7vw, 52px);
+    display: block;
+    margin-bottom: 10px;
+}
+
+.mood-card p {
+    font-size: clamp(12px, 2vw, 15px);
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+}
+
+.mood-message {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(20px, 4vw, 32px);
+    color: var(--gold);
+    text-align: center;
+    min-height: 50px;
+    z-index: 5;
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.mood-message.show {
+    opacity: 1;
+}
+
+/* ============================================
+   SCENE 8 - MUSIC
+   ============================================ */
+.music-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 5vw, 52px);
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--purple), var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 40px;
+    z-index: 5;
+}
+
+.music-player {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-radius: 24px;
+    padding: 30px;
+    text-align: center;
+    z-index: 5;
+    box-shadow: var(--glass-shadow);
+    max-width: 450px;
+    width: 90%;
+}
+
+.now-playing {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(13px, 2.5vw, 16px);
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 20px;
+    min-height: 24px;
+}
+
+.sound-waves {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 3px;
+    height: 70px;
+    margin-bottom: 20px;
+}
+
+.wave-bar {
+    width: 5px;
+    height: 8px;
+    background: var(--gradient-gold);
+    border-radius: 3px;
+    transition: height 0.15s ease;
+}
+
+.wave-bar.active {
+    animation: waveAnim 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes waveAnim {
+    0% { height: 8px; }
+    100% { height: var(--wave-height, 50px); }
+}
+
+.song-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.song-btn {
+    padding: 12px 20px;
+    font-size: clamp(13px, 2.5vw, 15px);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    background: rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+}
+
+.song-btn:hover {
+    background: rgba(255, 215, 0, 0.1);
+    border-color: var(--gold);
+    color: #fff;
+}
+
+.song-btn.active {
+    background: rgba(255, 215, 0, 0.15);
+    border-color: var(--gold);
+    color: var(--gold);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.15);
+}
+
+.music-controls {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.music-btn {
+    padding: 10px 24px;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    background: var(--gradient-gold);
+    color: #1a0033;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+}
+
+.music-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 25px rgba(255, 215, 0, 0.5);
+}
+
+.play-pause-btn {
+    min-width: 100px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.progress-fill {
+    width: 0%;
+    height: 100%;
+    background: var(--gradient-gold);
+    border-radius: 3px;
+    transition: width 0.3s ease;
+}
+
+.music-dedication {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(18px, 3.5vw, 26px);
+    color: var(--gold);
+}
+
+/* ============================================
+   SCENE 9 - FINAL
+   ============================================ */
+.fireworks-container {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.firework-particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    animation: fireworkBurst 1.5s ease-out forwards;
+}
+
+@keyframes fireworkBurst {
+    0% { transform: translate(0, 0) scale(1); opacity: 1; }
+    100% { transform: translate(var(--fw-x), var(--fw-y)) scale(0); opacity: 0; }
+}
+
+.final-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    z-index: 5;
+    text-align: center;
+    padding: 20px;
+}
+
+.final-cake {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.final-cake:hover {
+    transform: scale(1.05);
+}
+
+.final-cake-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(26, 0, 51, 0.92);
+    border: 1px solid var(--gold);
+    border-radius: 16px;
+    padding: 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+    width: 280px;
+    backdrop-filter: blur(10px);
+    z-index: 30;
+}
+
+.final-cake:hover .final-cake-text {
+    opacity: 1;
+}
+
+.final-cake-text p {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(12px, 2vw, 15px);
+    color: rgba(255, 255, 255, 0.95);
+    line-height: 1.8;
+}
+
+.final-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 7vw, 72px);
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--gold), #fff, var(--gold), var(--rose));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: titleGlow 2s ease-in-out infinite;
+}
+
+.final-subtitle {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(18px, 3.5vw, 28px);
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* ============================================
+   NEXT BUTTONS
+   ============================================ */
+.next-btn {
+    padding: 16px 40px;
+    font-size: clamp(14px, 2.5vw, 18px);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    background: var(--gradient-gold);
+    color: #1a0033;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(255, 215, 0, 0.4);
+    z-index: 5;
+    margin-top: 20px;
+}
+
+.next-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 30px rgba(255, 215, 0, 0.6);
+}
+
+.replay-btn {
+    background: linear-gradient(135deg, var(--rose), var(--purple));
+    color: white;
+    box-shadow: 0 4px 20px rgba(236, 72, 153, 0.4);
+}
+
+.replay-btn:hover {
+    box-shadow: 0 6px 30px rgba(236, 72, 153, 0.6);
+}
+
+/* ============================================
+   CONFETTI
+   ============================================ */
+.confetti-piece {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    z-index: 100;
+    animation: confettiFall 3s ease-in forwards;
+}
+
+@keyframes confettiFall {
+    0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+}
+
+/* ============================================
+   CONFETTI BLAST
+   ============================================ */
+.confetti-blast {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    z-index: 100;
+    pointer-events: none;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+@media (max-width: 768px) {
+    .timeline-item.left,
+    .timeline-item.right {
+        padding-left: 55%;
+        padding-right: 5%;
+        justify-content: flex-start;
+    }
+
+    .timeline-line {
+        left: 20px;
+    }
+
+    .memory-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .mood-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .envelope {
+        width: 260px;
+        height: 190px;
+    }
+
+    .memory-card {
+        height: 110px;
+    }
+
+    .memory-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+    }
+
+    .mood-card {
+        padding: 18px 10px;
+    }
+}
+
+/* ============================================
+   TRANSITIONS
+   ============================================ */
+.scene-transition {
+    animation: sceneTransition 0.8s ease;
+}
+
+@keyframes sceneTransition {
+    0% { opacity: 0; transform: scale(0.95); filter: blur(5px); }
+    100% { opacity: 1; transform: scale(1); filter: blur(0); }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--gold);
+    border-radius: 3px;
+}
