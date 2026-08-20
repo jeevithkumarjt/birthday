@@ -477,6 +477,26 @@ function initScene4() {
         });
     });
 
+    // Reveal All button
+    const revealAllBtn = document.getElementById('revealAllBtn');
+    revealAllBtn.classList.remove('done');
+    revealAllBtn.addEventListener('click', () => {
+        cards.forEach((card, i) => {
+            setTimeout(() => {
+                if (!card.classList.contains('flipped')) {
+                    card.classList.add('flipped');
+                    revealedMemories++;
+                }
+            }, i * 100);
+        });
+        revealAllBtn.classList.add('done');
+        setTimeout(() => {
+            nextBtn.style.display = 'block';
+            gsap.from(nextBtn, { y: 20, opacity: 0, duration: 0.5 });
+            launchConfettiRain(60);
+        }, cards.length * 100 + 300);
+    });
+
     nextBtn.addEventListener('click', () => goToScene(5));
 }
 
@@ -860,14 +880,11 @@ function initScene9() {
     );
 
     // Animate elements
-    gsap.from('.final-cake', {
-        scale: 0, rotation: -10, duration: 1, ease: 'back.out(1.7)'
+    gsap.from('.final-message-card', {
+        y: 30, opacity: 0, duration: 1, ease: 'back.out(1.4)'
     });
     gsap.from('.final-title', {
         y: 50, opacity: 0, duration: 1, delay: 0.5
-    });
-    gsap.from('.final-subtitle', {
-        y: 30, opacity: 0, duration: 1, delay: 1
     });
 
     // Replay button

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🎂 Happy Birthday Trijal 🎉</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800;900&family=Great+Vibes&family=Poppins:wght@300;400;500;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Great+Vibes&family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 </head>
@@ -69,6 +69,7 @@
                     </div>
                 </div>
             </div>
+            <p class="cake-subtitle">✨ Tap the candle to make a wish ✨</p>
             <p class="make-wish-text" id="makeWishText">Make a wish ❤️</p>
             <button class="next-btn" id="nextFromCake" style="display:none;">✨ Next For Our Memory ✨</button>
         </div>
@@ -78,7 +79,10 @@
     <section id="scene4" class="scene">
         <div class="floating-hearts-bg" id="floatingHearts4"></div>
         <h2 class="gallery-title">📸 Our Beautiful Memories</h2>
-        <div class="memory-grid" id="memoryGrid"></div>
+        <div class="memory-grid" id="memoryGrid">        </div>
+        <div class="memory-actions">
+            <button class="reveal-all-btn" id="revealAllBtn">🔓 Reveal All</button>
+        </div>
         <button class="next-btn" id="nextFromMemory">❤️ Tap To Next Our Journey ❤️</button>
     </section>
 
@@ -103,7 +107,7 @@
             <div class="timeline-item left">
                 <div class="timeline-card">
                     <span class="timeline-month">📍 February</span>
-                    <p class="timeline-event">I taught you to ride the scooty. Little did I know, you were teaching my heart to fly. 🛵</p>
+                    <p class="timeline-event">I taught you to ride the bike. Every wobble made me worry, but your smile made it all worth it. 🏍️</p>
                 </div>
             </div>
             <div class="timeline-item right">
@@ -144,6 +148,12 @@
             </div>
             <div class="timeline-item right">
                 <div class="timeline-card">
+                    <span class="timeline-month">📍 August</span>
+                    <p class="timeline-event">We visited Auroville together — the peaceful vibes, the Matrimandir, and you by my side. Pure magic. ✨</p>
+                </div>
+            </div>
+            <div class="timeline-item left">
+                <div class="timeline-card">
                     <span class="timeline-month">📍 September</span>
                     <p class="timeline-event">Your special day. The day the world received its most beautiful soul — you. Happy Birthday, my love. 🎉</p>
                 </div>
@@ -158,6 +168,12 @@
         <div class="letter-container">
             <div class="letter" id="loveLetter">
                 <div class="letter-seal">💌</div>
+                <span class="letter-decor ld-tl">❀</span>
+                <span class="letter-decor ld-tr">❤</span>
+                <span class="letter-decor ld-bl">✿</span>
+                <span class="letter-decor ld-br">❀</span>
+                <span class="letter-decor ld-ml">❤</span>
+                <span class="letter-decor ld-mr">✿</span>
                 <div class="letter-content" id="letterContent"></div>
             </div>
         </div>
@@ -232,23 +248,12 @@
     <section id="scene9" class="scene">
         <div class="fireworks-container" id="fireworksContainer"></div>
         <div class="final-content">
-            <div class="final-cake" id="finalCake">
-                <div class="birthday-cake">
-                    <div class="cake-shadow"></div>
-                    <div class="cake-plate"></div>
-                    <div class="cake-body">
-                        <div class="layer layer-1"></div>
-                        <div class="layer layer-2"></div>
-                        <div class="layer layer-3"></div>
-                    </div>
-                </div>
-                <div class="final-cake-text" id="finalCakeText">
-                    <p>Best Of Luck For Your Next Journey.<br>
-                    May all your dreams come true.<br>
-                    Stay happy.<br>
-                    Stay blessed.<br>
-                    And thank you for being part of my life ❤️</p>
-                </div>
+            <div class="final-message-card">
+                <p class="final-blessing">Best Of Luck For Your Next Journey.</p>
+                <p class="final-blessing">May all your dreams come true.</p>
+                <p class="final-blessing">Stay happy.</p>
+                <p class="final-blessing">Stay blessed.</p>
+                <p class="final-blessing final-highlight">And thank you for being part of my life ❤️</p>
             </div>
             <h1 class="final-title">🎉 Happy Birthday Trijal 🎉</h1>
             <p class="final-subtitle">"Forever wishing happiness and success for you."</p>

@@ -90,7 +90,7 @@ html, body {
 }
 
 .envelope-top-text {
-    font-family: 'Great Vibes', cursive;
+    font-family: 'Cormorant Garamond', serif;
     font-size: clamp(28px, 5vw, 48px);
     color: var(--gold);
     text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
@@ -180,7 +180,7 @@ html, body {
 
 .letter-text {
     color: #333;
-    font-family: 'Great Vibes', cursive;
+    font-family: 'Cormorant Garamond', serif;
     font-size: clamp(12px, 2.5vw, 18px);
     text-align: center;
     padding: 15px;
@@ -323,9 +323,9 @@ html, body {
 }
 
 .birthday-title {
-    font-family: 'Playfair Display', serif;
+    font-family: 'DM Serif Display', serif;
     font-size: clamp(32px, 7vw, 72px);
-    font-weight: 900;
+    font-weight: 400;
     background: linear-gradient(135deg, var(--gold), #fff, var(--gold));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -333,6 +333,7 @@ html, body {
     text-shadow: none;
     margin-bottom: 30px;
     animation: titleGlow 2s ease-in-out infinite;
+    letter-spacing: 1px;
 }
 
 @keyframes titleGlow {
@@ -584,9 +585,18 @@ html, body {
 
 
 
+.cake-subtitle {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(13px, 2.5vw, 17px);
+    color: rgba(255, 255, 255, 0.5);
+    z-index: 5;
+    margin-top: 5px;
+    letter-spacing: 1px;
+}
+
 /* ---- MAKE WISH TEXT ---- */
 .make-wish-text {
-    font-family: 'Great Vibes', cursive;
+    font-family: 'Cormorant Garamond', serif;
     font-size: clamp(28px, 5vw, 48px);
     color: var(--gold);
     opacity: 0;
@@ -609,9 +619,9 @@ html, body {
    SCENE 4 - MEMORY GALLERY
    ============================================ */
 .gallery-title {
-    font-family: 'Playfair Display', serif;
+    font-family: 'DM Serif Display', serif;
     font-size: clamp(24px, 4vw, 42px);
-    font-weight: 800;
+    font-weight: 400;
     background: linear-gradient(135deg, var(--gold), #fff, var(--gold));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -736,11 +746,42 @@ html, body {
     100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
 }
 
+.memory-actions {
+    display: flex;
+    gap: 10px;
+    z-index: 5;
+    margin-bottom: 10px;
+}
+
+.reveal-all-btn {
+    padding: 10px 24px;
+    font-size: clamp(13px, 2.5vw, 16px);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    background: rgba(255, 215, 0, 0.15);
+    color: var(--gold);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(8px);
+}
+
+.reveal-all-btn:hover {
+    background: rgba(255, 215, 0, 0.25);
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2);
+    transform: scale(1.05);
+}
+
+.reveal-all-btn.done {
+    display: none;
+}
+
 /* ============================================
    SCENE 5 - TIMELINE
    ============================================ */
 .timeline-title {
-    font-family: 'Playfair Display', serif;
+    font-family: 'DM Serif Display', serif;
     font-size: clamp(28px, 5vw, 52px);
     font-weight: 800;
     background: linear-gradient(135deg, var(--rose), var(--gold));
@@ -883,17 +924,17 @@ html, body {
 }
 
 .letter {
-    background: linear-gradient(145deg, rgba(255, 248, 230, 0.1), rgba(255, 240, 200, 0.06));
-    border: 1px solid rgba(255, 215, 0, 0.2);
-    border-radius: 20px;
-    padding: clamp(25px, 5vw, 45px);
+    background: linear-gradient(145deg, #fffdf8, #fef9f0, #fffdf8);
+    border: 1px solid rgba(180, 150, 100, 0.25);
+    border-radius: 8px;
+    padding: clamp(30px, 6vw, 50px) clamp(25px, 5vw, 45px);
     position: relative;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
     box-shadow:
-        0 8px 32px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 215, 0, 0.1);
+        0 4px 20px rgba(0, 0, 0, 0.15),
+        0 1px 3px rgba(0, 0, 0, 0.1),
+        inset 0 0 80px rgba(255, 248, 230, 0.5);
     width: 100%;
+    overflow: hidden;
 }
 
 .letter::before {
@@ -903,27 +944,58 @@ html, body {
     left: 0;
     right: 0;
     bottom: 0;
-    border-radius: 20px;
+    border-radius: 8px;
     background:
         repeating-linear-gradient(
             0deg,
             transparent,
-            transparent 31px,
-            rgba(255, 215, 0, 0.06) 31px,
-            rgba(255, 215, 0, 0.06) 32px
+            transparent 33px,
+            rgba(150, 130, 110, 0.12) 33px,
+            rgba(150, 130, 110, 0.12) 34px
         );
+    pointer-events: none;
+}
+
+.letter::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 40px;
+    width: 2px;
+    height: 100%;
+    background: rgba(220, 80, 80, 0.15);
     pointer-events: none;
 }
 
 .letter-seal {
     position: absolute;
-    top: -18px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 36px;
-    filter: drop-shadow(0 2px 8px rgba(233, 30, 99, 0.4));
+    top: -12px;
+    right: 20px;
+    font-size: 30px;
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.15));
     z-index: 10;
+    animation: sealFloat 3s ease-in-out infinite;
 }
+
+@keyframes sealFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-5px) rotate(5deg); }
+}
+
+.letter-decor {
+    position: absolute;
+    z-index: 5;
+    opacity: 0.2;
+    pointer-events: none;
+    font-size: 18px;
+}
+
+.ld-tl { top: 12px; left: 15px; }
+.ld-tr { top: 12px; right: 15px; }
+.ld-bl { bottom: 12px; left: 15px; }
+.ld-br { bottom: 12px; right: 15px; }
+.ld-ml { top: 50%; left: 12px; transform: translateY(-50%); }
+.ld-mr { top: 50%; right: 12px; transform: translateY(-50%); }
 
 .letter-content {
     position: relative;
@@ -931,22 +1003,25 @@ html, body {
 }
 
 .typewriter-text {
-    font-family: 'Dancing Script', cursive;
-    font-size: clamp(16px, 3vw, 21px);
-    color: rgba(255, 255, 255, 0.92);
-    line-height: 2;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(17px, 3vw, 22px);
+    color: #2c1810;
+    line-height: 2.2;
     margin: 0;
     white-space: pre-wrap;
     word-wrap: break-word;
+    font-style: italic;
+    letter-spacing: 0.3px;
 }
 
 .typewriter-cursor {
     display: inline;
-    color: var(--gold);
+    color: #c0392b;
     font-weight: bold;
     animation: cursorBlink 0.7s step-end infinite;
     font-family: monospace;
     font-size: clamp(18px, 3vw, 24px);
+    font-style: normal;
 }
 
 .typewriter-cursor.done {
@@ -966,7 +1041,7 @@ html, body {
    SCENE 7 - MOOD
    ============================================ */
 .mood-title {
-    font-family: 'Playfair Display', serif;
+    font-family: 'DM Serif Display', serif;
     font-size: clamp(28px, 5vw, 52px);
     font-weight: 800;
     background: linear-gradient(135deg, var(--gold), #fff, var(--gold));
@@ -1025,7 +1100,7 @@ html, body {
 }
 
 .mood-message {
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Cormorant Garamond', serif;
     font-size: clamp(20px, 4vw, 32px);
     color: var(--gold);
     text-align: center;
@@ -1044,7 +1119,7 @@ html, body {
    SCENE 8 - MUSIC
    ============================================ */
 .music-title {
-    font-family: 'Playfair Display', serif;
+    font-family: 'DM Serif Display', serif;
     font-size: clamp(28px, 5vw, 52px);
     font-weight: 800;
     background: linear-gradient(135deg, var(--purple), var(--gold));
@@ -1186,7 +1261,7 @@ html, body {
 }
 
 .music-dedication {
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Cormorant Garamond', serif;
     font-size: clamp(18px, 3.5vw, 26px);
     color: var(--gold);
 }
@@ -1224,49 +1299,35 @@ html, body {
     padding: 20px;
 }
 
-.final-cake {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    cursor: pointer;
-    transition: transform 0.3s ease;
+.final-message-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 30px 40px;
+    max-width: 500px;
+    box-shadow: var(--glass-shadow);
 }
 
-.final-cake:hover {
-    transform: scale(1.05);
-}
-
-.final-cake-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(26, 0, 51, 0.92);
-    border: 1px solid var(--gold);
-    border-radius: 16px;
-    padding: 20px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.5s ease;
-    width: 280px;
-    backdrop-filter: blur(10px);
-    z-index: 30;
-}
-
-.final-cake:hover .final-cake-text {
-    opacity: 1;
-}
-
-.final-cake-text p {
-    font-family: 'Poppins', sans-serif;
-    font-size: clamp(12px, 2vw, 15px);
-    color: rgba(255, 255, 255, 0.95);
+.final-blessing {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(16px, 3vw, 20px);
+    color: rgba(255, 255, 255, 0.9);
     line-height: 1.8;
+    margin: 0;
+    font-style: italic;
+}
+
+.final-highlight {
+    color: var(--gold);
+    font-weight: 700;
+    margin-top: 10px;
+    font-size: clamp(17px, 3.2vw, 22px);
 }
 
 .final-title {
-    font-family: 'Playfair Display', serif;
+    font-family: 'DM Serif Display', serif;
     font-size: clamp(32px, 7vw, 72px);
     font-weight: 900;
     background: linear-gradient(135deg, var(--gold), #fff, var(--gold), var(--rose));
@@ -1277,7 +1338,7 @@ html, body {
 }
 
 .final-subtitle {
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Cormorant Garamond', serif;
     font-size: clamp(18px, 3.5vw, 28px);
     color: rgba(255, 255, 255, 0.9);
 }
