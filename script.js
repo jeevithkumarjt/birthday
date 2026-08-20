@@ -241,7 +241,15 @@ function goToScene(sceneNum) {
 }
 
 function initScene(num) {
+    // Reset scene 1 state on replay
+    if (num === 1) {
+        const flap = document.getElementById('envelopeFlap');
+        const letter = document.getElementById('envelopeLetter');
+        if (flap) flap.classList.remove('open');
+        if (letter) letter.classList.remove('show');
+    }
     switch(num) {
+        case 1: initScene1(); break;
         case 2: initScene2(); break;
         case 3: initScene3(); break;
         case 4: initScene4(); break;
@@ -256,11 +264,23 @@ function initScene(num) {
 // ============================================
 // SCENE 1 - ENVELOPE
 // ============================================
+let scene1Initialized = false;
+
 function initScene1() {
-    const openBtn = document.getElementById('openEnvelope');
-    const envelope = document.getElementById('envelope');
     const flap = document.getElementById('envelopeFlap');
     const letter = document.getElementById('envelopeLetter');
+
+    // Clone button to remove old listeners on replay
+    if (scene1Initialized) {
+        const oldBtn = document.getElementById('openEnvelope');
+        if (oldBtn) {
+            const newBtn = oldBtn.cloneNode(true);
+            oldBtn.parentNode.replaceChild(newBtn, oldBtn);
+        }
+    }
+    scene1Initialized = true;
+
+    const openBtn = document.getElementById('openEnvelope');
 
     openBtn.addEventListener('click', () => {
         openBtn.style.display = 'none';
@@ -312,34 +332,71 @@ function initScene2() {
         'linear-gradient(135deg, #06b6d4, #0891b2)',
     ];
 
-    for (let i = 0; i < 30; i++) {
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const totalBalloons = 30;
+    const placed = [];
+
+    function isTooClose(x, y) {
+        for (const p of placed) {
+            const dx = x - p.x;
+            const dy = y - p.y;
+            if (Math.sqrt(dx * dx + dy * dy) < 90) return true;
+        }
+        return false;
+    }
+
+    for (let i = 0; i < totalBalloons; i++) {
+        let x, y, attempts = 0;
+        do {
+            x = Math.random() * (vw - 80);
+            y = Math.random() * (vh - 100);
+            attempts++;
+        } while (isTooClose(x, y) && attempts < 50);
+        placed.push({ x, y });
+
         const balloon = document.createElement('div');
         balloon.className = 'balloon';
-        balloon.style.background = balloonColors[Math.floor(Math.random() * balloonColors.length)];
-        balloon.style.left = Math.random() * 90 + '%';
-        balloon.style.top = Math.random() * 80 + '%';
-        balloon.style.animationDelay = Math.random() * 4 + 's';
+        balloon.style.background = balloonColors[i % balloonColors.length];
+        balloon.style.left = x + 'px';
+        balloon.style.top = y + 'px';
+        balloon.style.animationDelay = Math.random() * 3 + 's';
         balloon.style.animationDuration = (Math.random() * 2 + 3) + 's';
-        balloon.style.transform = `scale(${Math.random() * 0.5 + 0.7})`;
+        balloon.style.transform = `scale(${Math.random() * 0.4 + 0.7})`;
         container.appendChild(balloon);
-
-        balloon.addEventListener('click', (e) => {
-            e.stopPropagation();
-            balloon.classList.add('pop');
-
-            // Confetti from balloon position
-            const rect = balloon.getBoundingClientRect();
-            launchConfetti(rect.left + rect.width / 2, rect.top + rect.height / 2, 30);
-
-            // Sparkle burst
-            createParticles(rect.left + rect.width / 2, rect.top + rect.height / 2, 15,
-                ['#ffd700', '#ff6b9d', '#a855f7'],
-                'sparkle', 5, 80, 4
-            );
-
-            setTimeout(() => goToScene(3), 1000);
-        });
     }
+
+    // Click any balloon -> blast ALL balloons smoothly
+    let blasted = false;
+    container.addEventListener('click', (e) => {
+        const balloon = e.target.closest('.balloon');
+        if (!balloon || blasted) return;
+        blasted = true;
+
+        const allBalloons = container.querySelectorAll('.balloon');
+        allBalloons.forEach((b, idx) => {
+            setTimeout(() => {
+                b.classList.add('pop');
+                const rect = b.getBoundingClientRect();
+                launchConfetti(rect.left + rect.width / 2, rect.top + rect.height / 2, 15);
+                createParticles(rect.left + rect.width / 2, rect.top + rect.height / 2, 10,
+                    ['#ffd700', '#ff6b9d', '#a855f7'],
+                    'sparkle', 4, 70, 3
+                );
+            }, idx * 60);
+        });
+
+        // Grand blast from center after all popped
+        setTimeout(() => {
+            launchConfetti(vw / 2, vh / 2, 80);
+            createParticles(vw / 2, vh / 2, 80,
+                ['#ffd700', '#ff6b9d', '#a855f7', '#fff', '#ec4899'],
+                'confetti', 8, 150, 5
+            );
+        }, allBalloons.length * 60 + 200);
+
+        setTimeout(() => goToScene(3), allBalloons.length * 60 + 1000);
+    });
 
     // Create sparkles
     const sparklesBg = document.getElementById('sparklesBg2');
@@ -559,10 +616,15 @@ function initScene5() {
 // ============================================
 // SCENE 6 - LOVE LETTER (Typewriter Style)
 // ============================================
+let scene6TypingDone = false;
+
 function initScene6() {
     const letterContent = document.getElementById('letterContent');
     const nextBtn = document.getElementById('nextFromQuotes');
+    const skipBtn = document.getElementById('skipTypewriter');
     nextBtn.style.display = 'none';
+    skipBtn.style.display = 'block';
+    scene6TypingDone = false;
 
     // Create stars
     const starsBg = document.getElementById('starsBg6');
@@ -581,79 +643,75 @@ function initScene6() {
         'My dearest Trijal,',
         '',
         'Every moment with you feels like a beautiful dream.',
-        '',
         '✿ Your smile lights up even the darkest of days.',
-        '',
         'The way you laugh is my favorite sound in the world.',
-        '',
         '✿ You have this incredible ability to make everyone around you feel loved.',
-        '',
         'Watching you grow, achieve, and shine has been my greatest joy.',
-        '',
         '✿ On this special day, I want you to know that you are deeply cherished.',
-        '',
         'May this year bring you all the happiness your heart desires.',
-        '',
         '✿ May your dreams come true and your soul always find peace.',
-        '',
         'Happy Birthday, my love. I\'m so proud of you.',
-        '',
         '✿ With all my love, always.'
     ];
 
     letterContent.innerHTML = '';
 
-    // Build a single paragraph with line breaks
     const p = document.createElement('p');
     p.className = 'letter-text typewriter-text';
     letterContent.appendChild(p);
 
-    // Cursor
     const cursor = document.createElement('span');
     cursor.className = 'typewriter-cursor';
     cursor.textContent = '|';
     p.appendChild(cursor);
 
-    // Flatten all lines into one continuous string with real newlines
     const text = fullText.join('\n');
     let charIndex = 0;
 
-    // Auto scroll helper
     const container = document.querySelector('.letter-container');
 
     function typeNext() {
+        if (scene6TypingDone) return;
+
         if (charIndex >= text.length) {
-            cursor.classList.add('done');
-            setTimeout(() => {
-                nextBtn.style.display = 'block';
-                gsap.from(nextBtn, { y: 20, opacity: 0, duration: 0.5 });
-            }, 600);
+            finishTyping();
             return;
         }
 
         const char = text[charIndex];
 
         if (char === '\n') {
-            // Line break
             const br = document.createElement('br');
             p.insertBefore(br, cursor);
             charIndex++;
             container.scrollTop = container.scrollHeight;
-            setTimeout(typeNext, 100);
+            setTimeout(typeNext, 80);
         } else {
             const span = document.createTextNode(char);
             p.insertBefore(span, cursor);
             charIndex++;
             container.scrollTop = container.scrollHeight;
 
-            // Vary speed for natural feel
-            let delay = 40 + Math.random() * 30;
-            if (char === '.' || char === ',') delay = 150 + Math.random() * 100;
-            if (char === '✿') delay = 200;
+            let delay = 30 + Math.random() * 20;
+            if (char === '.' || char === ',') delay = 120 + Math.random() * 80;
+            if (char === '✿') delay = 150;
 
             setTimeout(typeNext, delay);
         }
     }
+
+    function finishTyping() {
+        scene6TypingDone = true;
+        p.innerHTML = text.replace(/\n/g, '<br>') + '<span class="typewriter-cursor done">|</span>';
+        skipBtn.style.display = 'none';
+        nextBtn.style.display = 'block';
+        gsap.from(nextBtn, { y: 20, opacity: 0, duration: 0.5 });
+    }
+
+    // Skip button - show full text instantly
+    skipBtn.addEventListener('click', () => {
+        finishTyping();
+    });
 
     setTimeout(typeNext, 800);
 
