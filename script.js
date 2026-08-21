@@ -334,14 +334,16 @@ function initScene2() {
 
     const vw = window.innerWidth;
     const vh = window.innerHeight;
-    const totalBalloons = 30;
+    const totalBalloons = vw < 480 ? 12 : vw < 768 ? 18 : 30;
     const placed = [];
+
+    const minDist = vw < 480 ? 70 : vw < 768 ? 80 : 90;
 
     function isTooClose(x, y) {
         for (const p of placed) {
             const dx = x - p.x;
             const dy = y - p.y;
-            if (Math.sqrt(dx * dx + dy * dy) < 90) return true;
+            if (Math.sqrt(dx * dx + dy * dy) < minDist) return true;
         }
         return false;
     }

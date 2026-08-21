@@ -1596,103 +1596,683 @@ html, body {
 }
 
 /* ============================================
-   RESPONSIVE DESIGN
-   ============================================ */
+    RESPONSIVE DESIGN - MOBILE
+    ============================================ */
+
+/* --- TABLET (768px and below) --- */
 @media (max-width: 768px) {
-    .timeline-item.left,
-    .timeline-item.right {
-        padding-left: 55%;
-        padding-right: 5%;
-        justify-content: flex-start;
+
+    /* Scene 1 - Envelope */
+    .envelope-container {
+        gap: 20px;
     }
 
-    .timeline-line {
-        left: 20px;
+    .envelope-top-text {
+        font-size: clamp(18px, 5vw, 28px);
+    }
+
+    /* Scene 2 - Happy Birthday */
+    .scene2-content {
+        padding: 15px;
+    }
+
+    .birthday-title {
+        font-size: clamp(20px, 6vw, 36px);
+        margin-bottom: 12px;
+    }
+
+    .birthday-quote {
+        padding: 12px;
+        margin-bottom: 12px;
+        font-size: clamp(10px, 2.2vw, 14px);
+    }
+
+    .tap-balloon-text {
+        font-size: clamp(12px, 3vw, 16px);
+    }
+
+    .balloon {
+        width: clamp(40px, 9vw, 65px);
+        height: clamp(50px, 11vw, 85px);
+    }
+
+    /* Scene 3 - Cake */
+    .birthday-cake {
+        width: clamp(280px, 70vw, 340px);
+        height: clamp(260px, 60vw, 320px);
+    }
+
+    .cake-subtitle {
+        font-size: clamp(12px, 2.8vw, 15px);
+    }
+
+    .make-wish-text {
+        font-size: clamp(18px, 5vw, 28px);
+    }
+
+    /* Scene 4 - Memory Gallery */
+    .gallery-title {
+        font-size: clamp(18px, 4.5vw, 28px);
+        margin-bottom: 8px;
     }
 
     .memory-grid {
         grid-template-columns: repeat(4, 1fr);
-    }
-
-    .mood-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    #scene6 {
-        padding-top: 2vh;
-    }
-
-    .letter-container {
-        max-height: 60vh;
-    }
-
-    .typewriter-text {
-        font-size: clamp(11px, 2.5vw, 14px);
-    }
-
-    .final-blessing {
-        font-size: clamp(13px, 2.5vw, 16px);
-    }
-
-    .final-subtitle {
-        font-size: clamp(14px, 2.8vw, 20px);
-    }
-}
-
-@media (max-width: 480px) {
-    .envelope {
-        width: 220px;
-        height: 160px;
+        gap: 8px;
+        max-height: 50vh;
+        padding: 8px;
     }
 
     .memory-card {
-        height: 100px;
+        height: 110px;
     }
 
-    .memory-grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 6px;
+    .memory-actions {
+        gap: 8px;
     }
 
-    .mood-card {
-        padding: 14px 8px;
+    .reveal-all-btn {
+        padding: 8px 18px;
+        font-size: clamp(11px, 2.5vw, 14px);
     }
 
-    .timeline-item {
-        margin-bottom: 16px;
+    /* Scene 5 - Timeline */
+    .timeline-title {
+        font-size: clamp(18px, 5vw, 32px);
+        margin-bottom: 12px;
+    }
+
+    .timeline {
+        width: 92%;
+        max-height: 55vh;
+    }
+
+    .timeline-item.left,
+    .timeline-item.right {
+        padding-left: 50%;
+        padding-right: 4%;
+        justify-content: flex-start;
+    }
+
+    .timeline-line {
+        left: 18px;
     }
 
     .timeline-card {
-        padding: 10px 14px;
+        padding: 12px 14px;
+        border-radius: 12px;
     }
 
-    .timeline-month {
-        font-size: clamp(12px, 2vw, 14px);
-    }
-
-    .timeline-event {
-        font-size: clamp(10px, 1.6vw, 13px);
+    /* Scene 6 - Letter */
+    #scene6 {
+        padding-top: 2vh;
+        padding-bottom: 2vh;
     }
 
     .letter-container {
         max-height: 55vh;
+        padding: 8px;
+    }
+
+    .letter {
+        padding: clamp(14px, 3.5vw, 24px) clamp(12px, 3vw, 20px);
     }
 
     .typewriter-text {
-        font-size: clamp(10px, 2.8vw, 13px);
+        font-size: clamp(11px, 2.5vw, 14px);
+        line-height: 1.8;
     }
 
+    .letter-seal {
+        font-size: 24px;
+        right: 14px;
+    }
+
+    .letter-decor {
+        font-size: 14px;
+    }
+
+    /* Scene 7 - Mood */
+    .mood-title {
+        font-size: clamp(18px, 5vw, 32px);
+        margin-bottom: 16px;
+    }
+
+    .mood-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+        width: 88%;
+    }
+
+    .mood-card {
+        padding: 14px 10px;
+    }
+
+    .mood-emoji {
+        font-size: clamp(26px, 5vw, 36px);
+    }
+
+    .mood-message {
+        font-size: clamp(14px, 3.5vw, 20px);
+        padding: 10px;
+    }
+
+    /* Scene 8 - Music */
+    .music-title {
+        font-size: clamp(18px, 5vw, 32px);
+        margin-bottom: 16px;
+    }
+
+    .music-player {
+        padding: 16px;
+        border-radius: 16px;
+    }
+
+    .sound-waves {
+        height: 55px;
+        gap: 2px;
+        margin-bottom: 14px;
+    }
+
+    .wave-bar {
+        width: 4px;
+    }
+
+    .song-btn {
+        padding: 10px 16px;
+        font-size: clamp(11px, 2.5vw, 14px);
+    }
+
+    .music-controls {
+        gap: 8px;
+    }
+
+    .music-btn {
+        padding: 8px 18px;
+        font-size: 14px;
+    }
+
+    .now-playing {
+        font-size: clamp(11px, 2.5vw, 14px);
+        margin-bottom: 14px;
+    }
+
+    .music-dedication {
+        font-size: clamp(16px, 4vw, 22px);
+    }
+
+    /* Scene 9 - Final */
     .final-content {
-        gap: 15px;
+        padding: 16px;
+        gap: 16px;
     }
 
     .final-message-card {
-        padding: 14px 20px;
+        padding: 16px 22px;
+        border-radius: 14px;
     }
 
     .final-blessing {
-        font-size: clamp(12px, 2.5vw, 14px);
+        font-size: clamp(12px, 2.5vw, 15px);
+        line-height: 1.5;
+    }
+
+    .final-highlight {
+        font-size: clamp(15px, 3.5vw, 20px);
+    }
+
+    .final-title {
+        font-size: clamp(22px, 6vw, 40px);
+    }
+
+    .final-subtitle {
+        font-size: clamp(13px, 3vw, 18px);
+    }
+
+    /* Buttons */
+    .next-btn {
+        padding: 10px 24px;
+        font-size: clamp(11px, 2.2vw, 14px);
+        margin-top: 12px;
+    }
+
+    .skip-btn {
+        padding: 8px 20px;
+        font-size: clamp(11px, 2.2vw, 14px);
+        margin-top: 8px;
+    }
+
+    /* Floating emojis smaller on tablet */
+    .floating-emojis-scene1 span {
+        font-size: 20px;
+    }
+
+    /* Floating hearts */
+    .floating-heart {
+        font-size: 16px;
+    }
+}
+
+/* --- MOBILE (480px and below) --- */
+@media (max-width: 480px) {
+
+    /* Scene 1 - Envelope */
+    .envelope-container {
+        gap: 16px;
+    }
+
+    .envelope {
+        width: clamp(180px, 55vw, 220px);
+        height: clamp(130px, 40vw, 160px);
+    }
+
+    .envelope-top-text {
+        font-size: clamp(16px, 5vw, 22px);
+    }
+
+    .letter-text {
+        font-size: clamp(10px, 3vw, 14px);
+        padding: 10px;
+    }
+
+    .tap-btn {
+        padding: 10px 24px;
+        font-size: clamp(12px, 3vw, 15px);
+    }
+
+    .floating-emojis-scene1 span {
+        font-size: 16px;
+    }
+
+    /* Scene 2 - Happy Birthday */
+    .scene2-content {
+        padding: 10px;
+    }
+
+    .birthday-title {
+        font-size: clamp(18px, 7vw, 30px);
+        margin-bottom: 8px;
+        letter-spacing: 0;
+    }
+
+    .birthday-quote {
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 12px;
+        font-size: clamp(9px, 2.8vw, 12px);
+        line-height: 1.5;
+    }
+
+    .tap-balloon-text {
+        font-size: clamp(11px, 3.5vw, 14px);
+    }
+
+    .balloon {
+        width: clamp(36px, 11vw, 50px);
+        height: clamp(44px, 13vw, 65px);
+    }
+
+    .balloon::after {
+        height: 20px;
+        bottom: -22px;
+    }
+
+    /* Scene 3 - Cake */
+    .cake-container {
+        gap: 8px;
+    }
+
+    .birthday-cake {
+        width: clamp(200px, 65vw, 260px);
+        height: clamp(200px, 60vw, 260px);
+    }
+
+    .cake-subtitle {
+        font-size: clamp(11px, 3vw, 13px);
+        letter-spacing: 0;
+    }
+
+    .make-wish-text {
+        font-size: clamp(16px, 5.5vw, 24px);
+    }
+
+    /* Scene 4 - Memory Gallery */
+    .gallery-title {
+        font-size: clamp(16px, 5.5vw, 24px);
+        margin-bottom: 6px;
+    }
+
+    .memory-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 5px;
+        max-height: 48vh;
+        padding: 6px;
+        margin-bottom: 8px;
+    }
+
+    .memory-card {
+        height: clamp(80px, 22vw, 100px);
+        perspective: none;
+    }
+
+    .card-inner {
+        border-radius: 10px;
+    }
+
+    .card-front, .card-back {
+        border-radius: 10px;
+    }
+
+    .lock-icon {
+        font-size: 22px;
+    }
+
+    .card-front p {
+        font-size: 9px;
+    }
+
+    .memory-emoji {
+        font-size: 32px;
+    }
+
+    .memory-actions {
+        gap: 6px;
+        margin-bottom: 6px;
+    }
+
+    .reveal-all-btn {
+        padding: 7px 14px;
+        font-size: clamp(10px, 2.8vw, 12px);
+        border-radius: 40px;
+    }
+
+    .floating-heart {
+        font-size: 12px;
+    }
+
+    /* Scene 5 - Timeline */
+    .timeline-title {
+        font-size: clamp(16px, 5.5vw, 26px);
+        margin-bottom: 10px;
+    }
+
+    .timeline {
+        max-height: 50vh;
+        padding: 12px 0;
+    }
+
+    .timeline-item.left,
+    .timeline-item.right {
+        padding-left: 42%;
+        padding-right: 3%;
+    }
+
+    .timeline-line {
+        left: 14px;
+        width: 2px;
+    }
+
+    .timeline-item {
+        margin-bottom: 14px;
+    }
+
+    .timeline-card {
+        padding: 8px 12px;
+        border-radius: 10px;
+    }
+
+    .timeline-month {
+        font-size: clamp(11px, 2.5vw, 13px);
+        margin-bottom: 4px;
+    }
+
+    .timeline-event {
+        font-size: clamp(9px, 2.2vw, 11px);
+        line-height: 1.4;
+    }
+
+    /* Scene 6 - Letter */
+    #scene6 {
+        padding-top: 1vh;
+        padding-bottom: 1vh;
+    }
+
+    .letter-container {
+        max-height: 50vh;
+        padding: 6px;
+    }
+
+    .letter {
+        padding: clamp(12px, 3vw, 18px) clamp(10px, 2.5vw, 16px);
+        border-radius: 6px;
+    }
+
+    .typewriter-text {
+        font-size: clamp(9px, 3.2vw, 12px);
         line-height: 1.6;
+        letter-spacing: 0;
+    }
+
+    .typewriter-cursor {
+        font-size: clamp(14px, 3.5vw, 18px);
+    }
+
+    .letter-seal {
+        font-size: 20px;
+        right: 10px;
+        top: -8px;
+    }
+
+    .letter-decor {
+        font-size: 12px;
+        opacity: 0.15;
+    }
+
+    .ld-tl { top: 8px; left: 10px; }
+    .ld-tr { top: 8px; right: 10px; }
+    .ld-bl { bottom: 8px; left: 10px; }
+    .ld-br { bottom: 8px; right: 10px; }
+
+    .skip-btn {
+        padding: 7px 16px;
+        font-size: clamp(10px, 2.8vw, 12px);
+    }
+
+    /* Scene 7 - Mood */
+    .mood-title {
+        font-size: clamp(16px, 5.5vw, 26px);
+        margin-bottom: 12px;
+    }
+
+    .mood-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        width: 85%;
+        margin-bottom: 20px;
+    }
+
+    .mood-card {
+        padding: 12px 8px;
+        border-radius: 12px;
+    }
+
+    .mood-emoji {
+        font-size: clamp(22px, 6vw, 32px);
+        margin-bottom: 4px;
+    }
+
+    .mood-card p {
+        font-size: clamp(10px, 2.5vw, 12px);
+    }
+
+    .mood-message {
+        font-size: clamp(13px, 4vw, 18px);
+        padding: 8px;
+    }
+
+    /* Scene 8 - Music */
+    .music-title {
+        font-size: clamp(16px, 5.5vw, 26px);
+        margin-bottom: 12px;
+    }
+
+    .music-player {
+        padding: 14px;
+        border-radius: 14px;
+    }
+
+    .sound-waves {
+        height: 45px;
+        gap: 2px;
+        margin-bottom: 12px;
+    }
+
+    .wave-bar {
+        width: 3px;
+    }
+
+    .song-btn {
+        padding: 9px 14px;
+        font-size: clamp(10px, 2.8vw, 13px);
+        border-radius: 10px;
+    }
+
+    .music-controls {
+        gap: 6px;
+        margin-bottom: 10px;
+    }
+
+    .music-btn {
+        padding: 8px 16px;
+        font-size: 13px;
+    }
+
+    .play-pause-btn {
+        min-width: 80px;
+    }
+
+    .progress-bar {
+        height: 4px;
+        margin-bottom: 14px;
+    }
+
+    .now-playing {
+        font-size: clamp(10px, 2.8vw, 13px);
+        margin-bottom: 10px;
+    }
+
+    .music-dedication {
+        font-size: clamp(14px, 4.5vw, 20px);
+    }
+
+    /* Scene 9 - Final */
+    .final-content {
+        padding: 12px;
+        gap: 12px;
+    }
+
+    .final-message-card {
+        padding: 12px 16px;
+        border-radius: 12px;
+        max-width: 320px;
+    }
+
+    .final-blessing {
+        font-size: clamp(11px, 2.8vw, 13px);
+        line-height: 1.4;
+    }
+
+    .final-highlight {
+        font-size: clamp(13px, 4vw, 18px);
+        margin-top: 6px;
+    }
+
+    .final-title {
+        font-size: clamp(20px, 7vw, 34px);
+    }
+
+    .final-subtitle {
+        font-size: clamp(12px, 3.5vw, 16px);
+    }
+
+    /* Buttons */
+    .next-btn {
+        padding: 9px 20px;
+        font-size: clamp(10px, 2.5vw, 13px);
+        margin-top: 10px;
+        border-radius: 40px;
+    }
+
+    .skip-btn {
+        padding: 7px 16px;
+        font-size: clamp(10px, 2.5vw, 12px);
+        margin-top: 6px;
+        border-radius: 40px;
+    }
+
+    /* Firework particles smaller */
+    .firework-particle {
+        width: 3px;
+        height: 3px;
+    }
+
+    /* Confetti smaller */
+    .confetti-blast {
+        width: 6px;
+        height: 6px;
+    }
+
+    .confetti-piece {
+        width: 7px;
+        height: 7px;
+    }
+}
+
+/* --- VERY SMALL SCREENS (360px and below) --- */
+@media (max-width: 360px) {
+    .envelope {
+        width: 160px;
+        height: 120px;
+    }
+
+    .birthday-title {
+        font-size: 16px;
+    }
+
+    .birthday-quote {
+        font-size: 9px;
+        padding: 8px;
+    }
+
+    .memory-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 4px;
+    }
+
+    .memory-card {
+        height: 70px;
+    }
+
+    .timeline-item.left,
+    .timeline-item.right {
+        padding-left: 38%;
+    }
+
+    .timeline-card {
+        padding: 6px 10px;
+    }
+
+    .mood-grid {
+        gap: 8px;
+    }
+
+    .mood-card {
+        padding: 10px 6px;
+    }
+
+    .final-message-card {
+        padding: 10px 12px;
+        max-width: 280px;
     }
 }
 
@@ -1721,4 +2301,162 @@ html, body {
 ::-webkit-scrollbar-thumb {
     background: var(--gold);
     border-radius: 3px;
+}
+
+/* ============================================
+    MOBILE TOUCH ENHANCEMENTS
+    ============================================ */
+@media (max-width: 768px) {
+    /* Smooth touch feedback for all interactive elements */
+    .tap-btn,
+    .next-btn,
+    .skip-btn,
+    .reveal-all-btn,
+    .music-btn,
+    .song-btn,
+    .mood-card,
+    .memory-card,
+    .balloon,
+    .candle {
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+    }
+
+    /* Reduce motion for users who prefer it */
+    @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+        }
+    }
+
+    /* Better bounce on tap */
+    .tap-btn:active,
+    .next-btn:active,
+    .skip-btn:active,
+    .music-btn:active,
+    .song-btn:active,
+    .reveal-all-btn:active {
+        transform: scale(0.95);
+        transition: transform 0.1s ease;
+    }
+
+    .mood-card:active {
+        transform: scale(0.92);
+        transition: transform 0.15s ease;
+    }
+
+    .memory-card:active .card-inner {
+        transform: scale(0.97);
+        transition: transform 0.1s ease;
+    }
+
+    .balloon:active {
+        transform: scale(0.85);
+        transition: transform 0.1s ease;
+    }
+
+    /* Smooth scrolling for scrollable scenes */
+    .scene {
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+    }
+
+    .letter-container,
+    .timeline,
+    .memory-grid {
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+        overscroll-behavior: contain;
+    }
+
+    /* Hide scrollbars on mobile for cleaner look */
+    .letter-container::-webkit-scrollbar,
+    .timeline::-webkit-scrollbar,
+    .memory-grid::-webkit-scrollbar {
+        width: 2px;
+    }
+
+    .letter-container::-webkit-scrollbar-thumb,
+    .timeline::-webkit-scrollbar-thumb,
+    .memory-grid::-webkit-scrollbar-thumb {
+        background: rgba(255, 215, 0, 0.3);
+    }
+
+    /* Prevent text selection on interactive elements */
+    .balloon,
+    .candle,
+    .mood-card {
+        user-select: none;
+        -webkit-user-select: none;
+    }
+
+    /* Pulse animation for next buttons on mobile */
+    .next-btn {
+        animation: mobilePulse 2s ease-in-out infinite;
+    }
+
+    @keyframes mobilePulse {
+        0%, 100% { box-shadow: 0 4px 20px rgba(255, 215, 0, 0.4); }
+        50% { box-shadow: 0 4px 30px rgba(255, 215, 0, 0.7), 0 0 40px rgba(255, 215, 0, 0.3); }
+    }
+
+    /* Floating emoji animation tweaks for mobile */
+    .floating-emojis-scene1 span:nth-child(1) { top: 5%; left: 5%; }
+    .floating-emojis-scene1 span:nth-child(2) { top: 10%; right: 8%; }
+    .floating-emojis-scene1 span:nth-child(3) { bottom: 25%; left: 10%; }
+    .floating-emojis-scene1 span:nth-child(4) { bottom: 20%; right: 5%; }
+
+    /* Envelope hover glow stronger on mobile touch */
+    .envelope:hover {
+        filter: drop-shadow(0 0 25px rgba(255, 215, 0, 0.6));
+    }
+
+    /* Memory card flip smoother on mobile */
+    .card-inner {
+        transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Timeline card entrance on mobile */
+    .timeline-item.revealed {
+        animation: slideInMobile 0.5s ease forwards;
+    }
+
+    @keyframes slideInMobile {
+        from {
+            opacity: 0;
+            transform: translateX(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    /* Mood card hover glow on mobile */
+    .mood-card.selected {
+        box-shadow: 0 0 25px rgba(255, 215, 0, 0.3), inset 0 0 15px rgba(255, 215, 0, 0.1);
+    }
+
+    /* Music player glass effect stronger on mobile */
+    .music-player {
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+
+    /* Wave bars animation smoother */
+    .wave-bar.active {
+        animation: waveAnim 0.4s ease-in-out infinite alternate;
+    }
+
+    /* Progress bar touch-friendly */
+    .progress-bar {
+        height: 8px;
+        margin: -2px 0 14px;
+    }
+
+    /* Final scene fireworks container */
+    .fireworks-container {
+        pointer-events: none;
+    }
 }
